@@ -1,0 +1,16 @@
+@(apps: List[models.db.App])
+
+@main(title = "Settings") {
+} {
+<script type="text/javascript">
+  $('document').ready(function(){
+    $('#settingsNavBar').siblings('li').removeClass('active');
+    $('#settingsNavBarMobile').siblings('li').removeClass('active');
+    $('#settingsNavBar').addClass('active');
+    $('#settingsNavBarMobile').addClass('active');
+  });
+</script>
+
+<h1>TODO: Add app management here</h1>
+
+}

@@ -1,0 +1,40 @@
+@(apks: List[models.db.Apk])
+
+@main(title = "Home"){
+<div class="nav-content">
+  <ul class="tabs tabs-transparent">
+    <li class="tab"><a class="active" href="#production">Production</a></li>
+    <li class="tab"><a href="#beta">Beta</a></li>
+    <li class="tab"><a href="#alpha">Alpha</a></li>
+  </ul>
+</div>} {
+<script type="text/javascript">
+  $('document').ready(function(){
+    $('#homeNavBarItem').siblings('li').removeClass('active');
+    $('#homeNavBarItemMobile').siblings('li').removeClass('active');
+    $('#homeNavBarItem').addClass('active');
+    $('#homeNavBarItemMobile').addClass('active');
+  });
+</script>
+
+<!-- first tab -->
+<div class="row">
+  <div id="production" class="col s12">
+    <ul class="collection with-header">
+      @for(index <- 0 until apks.size) {
+      <li class="collection-item avatar valign-wrapper">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Chromium_11_Logo.svg/256px-Chromium_11_Logo.svg.png" alt=""
+             class="responsive-img">
+        <span class="title">
+            <h5>@apks(index).getLabel()</h5>
+            <p>@apks(index).getVersionName() (@apks(index).getVersionCode())</p>
+          </span>
+      </li>
+      }
+    </ul>
+  </div>
+</div>
+
+<div id="beta" class="col s12">Whatever is in beta</div>
+<div id="alpha" class="col s12">whatever is in alpha</div>
+}

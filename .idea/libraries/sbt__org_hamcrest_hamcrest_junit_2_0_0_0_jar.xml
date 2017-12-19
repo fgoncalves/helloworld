@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.hamcrest:hamcrest-junit:2.0.0.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.hamcrest/hamcrest-junit/jars/hamcrest-junit-2.0.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.hamcrest/hamcrest-junit/srcs/hamcrest-junit-2.0.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
