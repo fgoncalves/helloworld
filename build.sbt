@@ -15,5 +15,6 @@ libraryDependencies ++= Seq(
   javaJpa,
 
   "org.mockito" % "mockito-core" % "2.13.0" % "test",
-  "org.hamcrest" % "hamcrest-junit" % "2.0.0.0" % "test"
+  "org.hamcrest" % "hamcrest-junit" % "2.0.0.0" % "test",
+  "org.assertj" % "assertj-core" % "3.8.0" % "test"
 )

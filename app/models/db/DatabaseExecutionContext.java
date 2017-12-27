@@ -2,9 +2,11 @@ package models.db;
 
 import akka.actor.ActorSystem;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import scala.concurrent.ExecutionContext;
 import scala.concurrent.ExecutionContextExecutor;
 
+@Singleton
 public class DatabaseExecutionContext implements ExecutionContextExecutor {
   private final ExecutionContext executionContext;
 
