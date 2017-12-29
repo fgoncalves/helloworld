@@ -4,13 +4,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import models.db.Apk;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import play.Logger;
 import play.db.jpa.JPAApi;
 import utils.SerialExectuionContextExecutor;
 
@@ -31,6 +32,7 @@ public class ApkRepositoryImplTest {
   public void setUp() {
     doAnswer(invocation -> {
       Runnable runnable = invocation.getArgument(0);
+      Logger.debug("Running");
       runnable.run();
       return null;
     }).when(jpaApi).withTransaction(any(Runnable.class));
@@ -42,14 +44,17 @@ public class ApkRepositoryImplTest {
   @Test
   public void all_shouldQueryForAllApks() throws ExecutionException, InterruptedException {
     List<Apk> expected = Collections.singletonList(new Apk("foo", 1, "bar"));
-    Query query = mock(Query.class);
+    TypedQuery<Apk> query = mock(TypedQuery.class);
     when(query.getResultList()).thenReturn(expected);
-    when(entityManager.createQuery("SELECT * FROM apks"))
+    when(entityManager.createQuery("FROM apks", Apk.class))
         .thenReturn(query);
 
     List<Apk> result = apkRepository.all()
         .toCompletableFuture()
-        .get();
+        .join();
+
+    Logger.debug("" + apkRepository.all()
+        .toCompletableFuture().join());
 
     assertThat(result).containsOnly(new Apk("foo", 1, "bar"));
   }

@@ -1,5 +1,7 @@
 package utils;
 
+import javax.annotation.Nonnull;
+import play.Logger;
 import scala.concurrent.ExecutionContext;
 import scala.concurrent.ExecutionContextExecutor;
 
@@ -19,7 +21,8 @@ public class SerialExectuionContextExecutor implements ExecutionContextExecutor 
     return this;
   }
 
-  @Override public void execute(Runnable runnable) {
+  @Override public void execute(@Nonnull Runnable runnable) {
+    Logger.debug("Running: " + runnable.getClass().getCanonicalName());
     runnable.run();
   }
 
