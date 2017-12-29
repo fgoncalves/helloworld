@@ -3,6 +3,7 @@ package repositories;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Supplier;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import models.db.Apk;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import play.Logger;
 import play.db.jpa.JPAApi;
 import utils.SerialExectuionContextExecutor;
 
@@ -31,11 +31,9 @@ public class ApkRepositoryImplTest {
   @Before
   public void setUp() {
     doAnswer(invocation -> {
-      Runnable runnable = invocation.getArgument(0);
-      Logger.debug("Running");
-      runnable.run();
-      return null;
-    }).when(jpaApi).withTransaction(any(Runnable.class));
+      Supplier supplier = invocation.getArgument(0);
+      return supplier.get();
+    }).when(jpaApi).withTransaction(any(Supplier.class));
     when(jpaApi.em()).thenReturn(entityManager);
 
     apkRepository = new ApkRepositoryImpl(jpaApi, SerialExectuionContextExecutor.executor());
@@ -52,9 +50,6 @@ public class ApkRepositoryImplTest {
     List<Apk> result = apkRepository.all()
         .toCompletableFuture()
         .join();
-
-    Logger.debug("" + apkRepository.all()
-        .toCompletableFuture().join());
 
     assertThat(result).containsOnly(new Apk("foo", 1, "bar"));
   }
