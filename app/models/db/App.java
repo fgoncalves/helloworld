@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "apps")
 public class App {
+  public static final App NONE = new App();
+
   @Id
   private final String applicationId;
   @NotNull

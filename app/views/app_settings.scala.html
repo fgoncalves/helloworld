@@ -1,0 +1,43 @@
+@(app: models.db.App)
+
+@main(title = "Settings") {
+} {
+<script type="text/javascript">
+  $('document').ready(function(){
+    $('#settingsNavBar').siblings('li').removeClass('active');
+    $('#settingsNavBarMobile').siblings('li').removeClass('active');
+    $('#settingsNavBar').addClass('active');
+    $('#settingsNavBarMobile').addClass('active');
+  });
+
+
+
+</script>
+
+<div class="card medium">
+  <div class="row card-content">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Foobar" id="app_name" type="text" class="validate"
+                 value="@app.getName()">
+          <label for="app_name">Application Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input placeholder="com.foo.bar" id="app_id" type="text" class="validate"
+                 value="@app.getApplicationId()">
+          <label for="app_id">Application Id</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="description" class="materialize-textarea"></textarea>
+          <label for="description">Description</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-action">
+    <a href="#">Save</a>
+  </div>
+</div>
+
+}
